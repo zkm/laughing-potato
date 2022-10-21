@@ -36,8 +36,16 @@
 
                     // Attempt select query execution
                     $sql = "SELECT * FROM sweetwater_test";
-                    if ($result = $mysqli->query($sql)) {
+                    $candySql = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%candy%'";
+                    $callSql = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%call me%'";
+                    $referredSql = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%referred%'";
+                    $signatureSql = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%signature%'";
+                    $miscSql = "SELECT * FROM `sweetwater_test` WHERE `comments` NOT LIKE '%candy%' AND `comments` NOT LIKE '%call me%' AND `comments` NOT LIKE '%referred%' AND `comments` NOT LIKE '%signature%'";
+
+                    // Candy
+                    if ($result = $mysqli->query($candySql)) {
                         if ($result->num_rows > 0) {
+                            echo '<h3>Candy Comments</h3>';
                             echo '<table class="table table-bordered table-striped">';
                             echo "<thead>";
                             echo "<tr>";
@@ -65,6 +73,129 @@
                         echo "Oops! Something went wrong. Please try again later.";
                     }
 
+                    // Call me
+                    if ($result = $mysqli->query($callSql)) {
+                        if ($result->num_rows > 0) {
+                            echo '<h3>Call Me/Don`t Call Me Comments</h3>';
+                            echo '<table class="table table-bordered table-striped">';
+                            echo "<thead>";
+                            echo "<tr>";
+                            echo "<th>#</th>";
+                            echo "<th>Comment</th>";
+                            echo "<th>Ship Date</th>";
+                            echo "</tr>";
+                            echo "</thead>";
+                            echo "<tbody>";
+                            while ($row = $result->fetch_array()) {
+                                echo "<tr>";
+                                echo "<td>" . $row['orderid'] . "</td>";
+                                echo "<td>" . $row['comments'] . "</td>";
+                                echo "<td>" . $row['shipdate_expected'] . "</td>";
+                                echo "</tr>";
+                            }
+                            echo "</tbody>";
+                            echo "</table>";
+                            // Free result set
+                            $result->free();
+                        } else {
+                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                        }
+                    } else {
+                        echo "Oops! Something went wrong. Please try again later.";
+                    }
+
+                    // Referred
+                    if ($result = $mysqli->query($referredSql)) {
+                        if ($result->num_rows > 0) {
+                            echo '<h3>Referred Comments</h3>';
+                            echo '<table class="table table-bordered table-striped">';
+                            echo "<thead>";
+                            echo "<tr>";
+                            echo "<th>#</th>";
+                            echo "<th>Comment</th>";
+                            echo "<th>Ship Date</th>";
+                            echo "</tr>";
+                            echo "</thead>";
+                            echo "<tbody>";
+                            while ($row = $result->fetch_array()) {
+                                echo "<tr>";
+                                echo "<td>" . $row['orderid'] . "</td>";
+                                echo "<td>" . $row['comments'] . "</td>";
+                                echo "<td>" . $row['shipdate_expected'] . "</td>";
+                                echo "</tr>";
+                            }
+                            echo "</tbody>";
+                            echo "</table>";
+                            // Free result set
+                            $result->free();
+                        } else {
+                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                        }
+                    } else {
+                        echo "Oops! Something went wrong. Please try again later.";
+                    }
+
+                    // Signature
+                    if ($result = $mysqli->query($signatureSql)) {
+                        if ($result->num_rows > 0) {
+                            echo '<h3>Signature Comments</h3>';
+                            echo '<table class="table table-bordered table-striped">';
+                            echo "<thead>";
+                            echo "<tr>";
+                            echo "<th>#</th>";
+                            echo "<th>Comment</th>";
+                            echo "<th>Ship Date</th>";
+                            echo "</tr>";
+                            echo "</thead>";
+                            echo "<tbody>";
+                            while ($row = $result->fetch_array()) {
+                                echo "<tr>";
+                                echo "<td>" . $row['orderid'] . "</td>";
+                                echo "<td>" . $row['comments'] . "</td>";
+                                echo "<td>" . $row['shipdate_expected'] . "</td>";
+                                echo "</tr>";
+                            }
+                            echo "</tbody>";
+                            echo "</table>";
+                            // Free result set
+                            $result->free();
+                        } else {
+                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                        }
+                    } else {
+                        echo "Oops! Something went wrong. Please try again later.";
+                    }
+
+                    // Misc
+                    if ($result = $mysqli->query($miscSql)) {
+                        if ($result->num_rows > 0) {
+                            echo '<h3>Misc Comments</h3>';
+                            echo '<table class="table table-bordered table-striped">';
+                            echo "<thead>";
+                            echo "<tr>";
+                            echo "<th>#</th>";
+                            echo "<th>Comment</th>";
+                            echo "<th>Ship Date</th>";
+                            echo "</tr>";
+                            echo "</thead>";
+                            echo "<tbody>";
+                            while ($row = $result->fetch_array()) {
+                                echo "<tr>";
+                                echo "<td>" . $row['orderid'] . "</td>";
+                                echo "<td>" . $row['comments'] . "</td>";
+                                echo "<td>" . $row['shipdate_expected'] . "</td>";
+                                echo "</tr>";
+                            }
+                            echo "</tbody>";
+                            echo "</table>";
+                            // Free result set
+                            $result->free();
+                        } else {
+                            echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                        }
+                    } else {
+                        echo "Oops! Something went wrong. Please try again later.";
+                    }
                     // Close connection
                     $mysqli->close();
                     ?>

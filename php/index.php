@@ -37,29 +37,35 @@ updateShipDate();
                     <?php 
                         // Display the comments for each category
                         echo '<h2>Comments about candy</h2>';
+                        echo '<ul>';
                         foreach ($comments['candy'] as $comment) {
-                            echo $comment . '<br>';
+                            echo '<li>' . $comment . '</li>';
                         }
-
+                        echo '</ul>';
                         echo '<h2>Comments about call me / don\'t call me</h2>';
+                        echo '<ul>';
                         foreach ($comments['call me'] as $comment) {
-                            echo $comment . '<br>';
+                            echo '<li>' . $comment . '</li>';
                         }
-
+                        echo '</ul>';
                         echo '<h2>Comments about who referred me</h2>';
+                        echo '<ul>';
                         foreach ($comments['referred'] as $comment) {
-                            echo $comment . '<br>';
+                            echo '<li>' . $comment . '</li>';
                         }
-
+                        echo '</ul>';
                         echo '<h2>Comments about signature requirements upon delivery</h2>';
+                        echo '<ul>';
                         foreach ($comments['signature'] as $comment) {
-                            echo $comment . '<br>';
+                            echo '<li>' . $comment . '</li>';
                         }
-
+                        echo '</ul>';
                         echo '<h2>Miscellaneous comments</h2>';
+                        echo '<ul>';
                         foreach ($comments['misc'] as $comment) {
-                            echo $comment . '<br>';
+                            echo '<li>' . $comment . '</li>';
                         }
+                        echo '</ul>';
                     ?>
                 </div>
             </div>

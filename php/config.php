@@ -10,6 +10,6 @@ $dbname = 'sweetwater_db';
 $conn = mysqli_connect($host, $user, $password, $dbname);
 
 // Check connection
-if($conn === false){
-  die("ERROR: Could not connect. " . $conn->connect_error);
-} 
+if (!$conn) {
+  die("ERROR: Could not connect. " . mysqli_connect_error());
+}

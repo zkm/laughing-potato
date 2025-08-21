@@ -36,3 +36,19 @@ The shipdate_expected field is currently populated with no date (0000-00-00). So
 - __Work quickly.__ This project was designed to be completed quickly, so don't spend too much time on it.
 - __Write your own code.__ While we understand that there are pakages out there that take care of common problems, we ultimately want to see what _YOU_ can build, not what someone else has built.
 - __Do your best work.__ We're using this project as a viewport into who you are as a developer. Show us what you can do!
+
+## How to run
+
+- With Docker (recommended):
+	1) docker-compose up -d --build
+	2) Open http://localhost:8100
+
+## How to run tests
+
+- Inside the web container:
+	1) composer install
+	2) ./vendor/bin/phpunit --testdox
+
+Notes:
+- Tests use Composer autoload and load environment from .env if present. Defaults match docker-compose (db/sweetwater_db).
+- The legacy run-tests.sh has been removed in favor of standard Composer/PHPUnit.

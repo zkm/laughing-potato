@@ -1,3 +1,43 @@
+# Operating System Files
 .DS_Store
-yarn.lock
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# PHP Dependencies
+/vendor/
+composer.lock
+
+# Environment Files
+.env
+.env.local
+.env.*.local
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+/logs/
+
+# Cache
+/cache/
+/tmp/
+
+# Node.js (if using any frontend tools)
 node_modules/
+yarn.lock
+npm-debug.log*
+
+# Docker
+.docker/
+
+# Archives (since you're comparing old vs new)
+/archive/

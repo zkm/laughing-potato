@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   db:
     image: mysql:8
@@ -10,15 +8,26 @@ services:
       MYSQL_PASSWORD: sweetwater_pass
     ports:
       - "9906:3306"
+    volumes:
+      - ./docker/sql:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "sweetwater_user", "-psweetwater_pass"]
+      timeout: 20s
+      retries: 10
   web:
     build: ./docker
-    image: php:8.1-apache
     container_name: php_sweetwater
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     volumes:
-      - ./php/:/var/www/html/
+      - ./:/var/www/html/
     ports:
       - "8100:80"
     stdin_open: true
     tty: true
+    environment:
+      - DB_HOST=db
+      - DB_USER=sweetwater_user
+      - DB_PASS=sweetwater_pass
+      - DB_NAME=sweetwater_db

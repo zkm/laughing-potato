@@ -1,3 +1,6 @@
+-- Ensure UTF-8 when importing this seed data
+SET NAMES utf8mb4;
+
 DROP TABLE IF EXISTS `sweetwater_test`;
 
 CREATE TABLE `sweetwater_test` (

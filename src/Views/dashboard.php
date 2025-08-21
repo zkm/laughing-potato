@@ -16,7 +16,11 @@
             </div>
         </div>
         <div class="header-actions">
-            <span class="env-badge">ENV: <?= htmlspecialchars($_ENV['APP_ENV'] ?? 'local') ?></span>
+            <?php $appEnv = $_ENV['APP_ENV'] ?? getenv('APP_ENV') ?: null; ?>
+            <?php if (!empty($appEnv)): ?>
+                <span class="env-badge">ENV: <?= htmlspecialchars($appEnv) ?></span>
+            <?php endif; ?>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Toggle theme</button>
         </div>
     </header>
 
@@ -102,4 +106,41 @@
         </section>
     </main>
 </body>
+<script>
+    (function() {
+        const STORAGE_KEY = 'sw-theme';
+        const root = document.documentElement;
+        const toggle = document.getElementById('themeToggle');
+
+        function applyTheme(theme) {
+            if (theme) {
+                root.setAttribute('data-theme', theme);
+            } else {
+                root.removeAttribute('data-theme');
+            }
+        }
+
+        function currentTheme() {
+            return root.getAttribute('data-theme');
+        }
+
+        // Initialize from localStorage
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved === 'light' || saved === 'dark') {
+                applyTheme(saved);
+            }
+        } catch (_) {}
+
+        toggle?.addEventListener('click', function() {
+            const cur = currentTheme();
+            const next = cur === 'light' ? 'dark' : cur === 'dark' ? '' : 'light';
+            applyTheme(next);
+            try {
+                if (next) localStorage.setItem(STORAGE_KEY, next);
+                else localStorage.removeItem(STORAGE_KEY);
+            } catch (_) {}
+        });
+    })();
+    </script>
 </html>

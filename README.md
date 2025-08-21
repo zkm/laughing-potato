@@ -40,15 +40,50 @@ The shipdate_expected field is currently populated with no date (0000-00-00). So
 ## How to run
 
 - With Docker (recommended):
-	1) docker-compose up -d --build
-	2) Open http://localhost:8100
+	1) Build and start services
+		 - docker-compose up -d --build
+	2) Open the app
+		 - http://localhost:8100
+	3) Composer dependencies are installed during image build and also ensured on container start.
+
+Notes
+- Web server: php:8.1-apache (document root: public/)
+- DB: MySQL 8 (exposed on host as 9906)
+- Composer: installed in the image; vendor/ is persisted in a named volume
 
 ## How to run tests
 
-- Inside the web container:
-	1) composer install
-	2) ./vendor/bin/phpunit --testdox
+- Easiest (interactive helper):
+	- ./scripts/test.sh            # menu for All/Unit/Integration/Coverage
+	- ./scripts/test.sh all        # run all tests
+	- ./scripts/test.sh unit       # unit tests only
+	- ./scripts/test.sh integration# integration tests only
+
+- Direct commands (inside Docker):
+	- docker-compose exec web vendor/bin/phpunit           # all tests
+	- docker-compose exec web vendor/bin/phpunit tests/Unit
+	- docker-compose exec web vendor/bin/phpunit tests/Integration
+
+- Coverage (optional):
+	- docker-compose exec web composer test-coverage
+	- If you see "No code coverage driver available", we can add Xdebug/PCOV to the image.
 
 Notes:
 - Tests use Composer autoload and load environment from .env if present. Defaults match docker-compose (db/sweetwater_db).
 - The legacy run-tests.sh has been removed in favor of standard Composer/PHPUnit.
+
+## Database
+
+- Hostnames and credentials (match docker-compose):
+	- Host: db (from within containers) or localhost:9906 (from host)
+	- User: sweetwater_user
+	- Pass: sweetwater_pass
+	- DB:   sweetwater_db
+
+## Troubleshooting
+
+- Error: require vendor/autoload.php failed
+	- Cause: dependencies not installed yet
+	- Fix:
+		- docker-compose up -d --build (ensures install during build)
+		- or run ./scripts/test.sh (installs on first run if missing)

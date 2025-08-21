@@ -15,13 +15,16 @@ services:
       timeout: 20s
       retries: 10
   web:
-    build: ./docker
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     container_name: php_sweetwater
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - ./:/var/www/html/
+      - vendor:/var/www/html/vendor
     ports:
       - "8100:80"
     stdin_open: true
@@ -31,3 +34,6 @@ services:
       - DB_USER=sweetwater_user
       - DB_PASS=sweetwater_pass
       - DB_NAME=sweetwater_db
+
+volumes:
+  vendor:

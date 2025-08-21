@@ -31,6 +31,11 @@ composer.lock
 /cache/
 /tmp/
 
+# PHPUnit cache and coverage
+.phpunit.result.cache
+.phpunit.cache
+/coverage/
+
 # Node.js (if using any frontend tools)
 node_modules/
 yarn.lock

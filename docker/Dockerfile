@@ -24,3 +24,13 @@ RUN a2enmod rewrite
 
 # Set working directory
 WORKDIR /var/www/html
+
+# Copy composer files (composer.json and optionally composer.lock) and install dependencies
+COPY composer.* ./
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Add entrypoint that ensures dependencies are present when using bind mounts
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

@@ -23,6 +23,8 @@ try {
     
     // Get categorized comments (Task 1)
     $comments = $commentService->categorizeComments();
+    $commentStats = $commentService->getCommentStats();
+    $shipDateStats = $shipDateService->getShipDateStats();
     
     // Include the view
     include __DIR__ . '/../src/Views/dashboard.php';

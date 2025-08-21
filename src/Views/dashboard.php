@@ -5,84 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sweetwater Comments Dashboard</title>
     <link rel="stylesheet" href="/css/style.css">
-    <style>
-        .wrapper {
-            width: 95%;
-            margin: 0 auto;
-        }
-        .category-section {
-            margin-bottom: 2rem;
-        }
-        .comment-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-    </style>
 </head>
 <body>
-    <div class="wrapper">
-    <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="mt-4 mb-4">Sweetwater Comments Dashboard</h1>
-                    
-                    <div class="category-section">
-                        <h2>Comments about candy</h2>
-                        <div class="comment-list">
-                            <ul class="list-group">
-                                <?php foreach ($comments['candy'] as $comment): ?>
-                                    <li class="list-group-item"><?= htmlspecialchars($comment) ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="category-section">
-                        <h2>Comments about call me / don't call me</h2>
-                        <div class="comment-list">
-                            <ul class="list-group">
-                                <?php foreach ($comments['call_me'] as $comment): ?>
-                                    <li class="list-group-item"><?= htmlspecialchars($comment) ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="category-section">
-                        <h2>Comments about who referred me</h2>
-                        <div class="comment-list">
-                            <ul class="list-group">
-                                <?php foreach ($comments['referred'] as $comment): ?>
-                                    <li class="list-group-item"><?= htmlspecialchars($comment) ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="category-section">
-                        <h2>Comments about signature requirements upon delivery</h2>
-                        <div class="comment-list">
-                            <ul class="list-group">
-                                <?php foreach ($comments['signature'] as $comment): ?>
-                                    <li class="list-group-item"><?= htmlspecialchars($comment) ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="category-section">
-                        <h2>Miscellaneous comments</h2>
-                        <div class="comment-list">
-                            <ul class="list-group">
-                                <?php foreach ($comments['misc'] as $comment): ?>
-                                    <li class="list-group-item"><?= htmlspecialchars($comment) ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+    <header class="app-header">
+        <div class="brand">
+            <div class="logo">SW</div>
+            <div class="title-group">
+                <h1>Sweetwater Comments</h1>
+                <p class="subtitle">Customer comments and expected ship dates</p>
             </div>
         </div>
-    </div>
+        <div class="header-actions">
+            <span class="env-badge">ENV: <?= htmlspecialchars($_ENV['APP_ENV'] ?? 'local') ?></span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="cards">
+            <div class="card">
+                <div class="card-title">Total Comments</div>
+                <div class="card-metric"><?= (int)($commentStats['total'] ?? 0) ?></div>
+                <div class="card-foot">All categories combined</div>
+            </div>
+            <div class="card">
+                <div class="card-title">With Ship Date</div>
+                <div class="card-metric success-text"><?= (int)($shipDateStats['with_ship_date'] ?? 0) ?></div>
+                <div class="card-foot">Extracted from comments</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Without Ship Date</div>
+                <div class="card-metric warn-text"><?= (int)($shipDateStats['without_ship_date'] ?? 0) ?></div>
+                <div class="card-foot">Needs follow-up</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Valid Dates</div>
+                <div class="card-metric"><?= (int)($shipDateStats['valid_dates'] ?? 0) ?></div>
+                <div class="card-foot">YYYY-MM-DD</div>
+            </div>
+        </section>
+
+        <section class="grid">
+            <div class="panel">
+                <h2>Candy</h2>
+                <div class="comment-list">
+                    <ul>
+                        <?php foreach ($comments['candy'] as $comment): ?>
+                            <li><?= htmlspecialchars($comment) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Call me / Don’t call me</h2>
+                <div class="comment-list">
+                    <ul>
+                        <?php foreach ($comments['call_me'] as $comment): ?>
+                            <li><?= htmlspecialchars($comment) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Who referred me</h2>
+                <div class="comment-list">
+                    <ul>
+                        <?php foreach ($comments['referred'] as $comment): ?>
+                            <li><?= htmlspecialchars($comment) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Signature requirements</h2>
+                <div class="comment-list">
+                    <ul>
+                        <?php foreach ($comments['signature'] as $comment): ?>
+                            <li><?= htmlspecialchars($comment) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel span-2">
+                <h2>Miscellaneous</h2>
+                <div class="comment-list">
+                    <ul>
+                        <?php foreach ($comments['misc'] as $comment): ?>
+                            <li><?= htmlspecialchars($comment) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

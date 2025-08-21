@@ -6,9 +6,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 // Force UTF-8 output
 header('Content-Type: text/html; charset=UTF-8');
 
-// Load environment variables
+// Load environment variables (safe for environments without .env)
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->load();
+$dotenv->safeLoad();
 
 use Sweetwater\Services\CommentService;
 use Sweetwater\Services\ShipDateService;

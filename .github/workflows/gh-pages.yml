@@ -63,6 +63,7 @@ jobs:
           DB_USER: sweetwater_user
           DB_PASS: sweetwater_pass
           DB_NAME: sweetwater_db
+          DB_PORT: 3306
           APP_ENV: pages
         run: |
           mkdir -p dist/css

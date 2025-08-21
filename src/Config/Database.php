@@ -9,12 +9,14 @@ class Database
     
     private function __construct()
     {
-        $host = $_ENV['DB_HOST'] ?? 'db';
-        $user = $_ENV['DB_USER'] ?? 'sweetwater_user';
-        $password = $_ENV['DB_PASS'] ?? 'sweetwater_pass';
-        $dbname = $_ENV['DB_NAME'] ?? 'sweetwater_db';
+    // Resolve env vars from process env and $_ENV, with sane defaults
+    $host = getenv('DB_HOST') ?: ($_ENV['DB_HOST'] ?? 'db');
+    $user = getenv('DB_USER') ?: ($_ENV['DB_USER'] ?? 'sweetwater_user');
+    $password = getenv('DB_PASS') ?: ($_ENV['DB_PASS'] ?? 'sweetwater_pass');
+    $dbname = getenv('DB_NAME') ?: ($_ENV['DB_NAME'] ?? 'sweetwater_db');
+    $port = (int) (getenv('DB_PORT') ?: ($_ENV['DB_PORT'] ?? 3306));
         
-        $this->connection = mysqli_connect($host, $user, $password, $dbname);
+    $this->connection = mysqli_connect($host, $user, $password, $dbname, $port);
         
         if (!$this->connection) {
             throw new \Exception("Database connection failed: " . mysqli_connect_error());

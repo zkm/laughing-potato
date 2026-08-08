@@ -9,7 +9,7 @@ services:
     ports:
       - "9906:3306"
     volumes:
-      - ./docker/sql:/docker-entrypoint-initdb.d
+      - ./docker/sql:/docker-entrypoint-initdb.d:z
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "sweetwater_user", "-psweetwater_pass"]
       timeout: 20s
@@ -23,7 +23,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./:/var/www/html/
+      - ./:/var/www/html/:z
       - vendor:/var/www/html/vendor
     ports:
       - "8100:80"

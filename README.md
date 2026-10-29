@@ -1,5 +1,15 @@
 # Web Programmer Test Project
 
+[![CI](https://github.com/zkm/laughing-potato/actions/workflows/ci.yml/badge.svg)](https://github.com/zkm/laughing-potato/actions/workflows/ci.yml)
+[![Deploy to GitHub Pages](https://github.com/zkm/laughing-potato/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/zkm/laughing-potato/actions/workflows/gh-pages.yml)
+[![demo](https://img.shields.io/website?url=https%3A%2F%2Fzkm.github.io%2Flaughing-potato%2F&label=demo)](https://zkm.github.io/laughing-potato/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
+![PHP 8.1+](https://img.shields.io/badge/PHP-8.1%2B-777BB4?logo=php&logoColor=white)
+![MySQL 8](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
+![PHPUnit 9](https://img.shields.io/badge/PHPUnit-9-3C9CD7)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+
 Thanks for your interest in working at Sweetwater! We're always excited to meet awesome people. We've created this test to help us understand your programming chops.
 
 When placing orders on a website, we provide a field for customers to add a quick comment to tell us something we should know about them or their order. We're supplying you a MySQL table with these various comments and want to see your approach the following tasks.
